@@ -168,19 +168,24 @@ requires-python = ">=3.12"
 - Fill out all response submodels using the Markdown/HTML specs.
 - Flesh out README.md with usage and examples.
 - Automate spec → model generation as part of the build.
-- Add CI, integration tests, and packaging pipeline.
+- Add CI and packaging pipeline.
 
 ---
 
 ## 9. Parallel tasks for agents
-- **Response model completion**: Populate all Pydantic response submodels in `httpobjects.py` by extracting field definitions from the Markdown/HTML specs.
-- **Model generator**: Build or refine a script that transforms the HTML spec sections into Pydantic class definitions automatically.
-- **README & examples**: Expand `README.md` with installation instructions, usage examples, and quick‑start code snippets.
-- **Integration tests**: Create end‑to‑end tests for `BraveClient` using a mock HTTP server to simulate API responses.
-- **CI/CD setup**: Configure continuous integration (pytest run, linting/formatting checks, spec‑to‑model generation) and automated package publishing.
-- **Packaging & release**: Add build/publish configuration (e.g., Poetry or setuptools), version bump flow, and PyPI metadata.
-- **Linting & typing**: Integrate a linter (ruff), formatter (black), and type checker (pyright) into the workflow.
-- **Performance benchmarks**: Measure request throughput and rate‑limit performance, and create simple benchmarks.
+- **✅ Completed tasks**
+  - Integration tests (tests/test_integration_braveclient.py)
+  - Unit tests for boolean parameter conversion (tests/test_client.py)
+  - Scaffold DiscussionResult & ForumData models and unit tests (httpobjects.py, tests/test_dataobjs.py)
+
+- **Pending tasks**
+  - Response model completion: Populate remaining response submodels in `httpobjects.py`.
+  - Model generator: Build/refine script that transforms HTML specs to Pydantic classes.
+  - README & examples: Expand `README.md` with installation instructions and examples.
+  - CI/CD setup: Configure continuous integration and automated package publishing.
+  - Packaging & release: Add build/publish configuration, version bump flow, and PyPI metadata.
+  - Linting & typing: Integrate linter (ruff), formatter (black), and type checker (pyright).
+  - Performance benchmarks: Measure request throughput and rate-limit performance.
 
 
 # Expected Behaviour
