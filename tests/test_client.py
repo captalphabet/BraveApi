@@ -95,3 +95,21 @@ def test_summarizer_search_error():
         asyncio.run(client.summarizer_search("summary-key", entity_info=False))
     assert exc.value.status == 403
     assert exc.value.data == dummy_json
+
+def test_web_search_bool_params_conversion():
+    # Ensure boolean query parameters are converted to integers and defaults excluded
+    dummy_json = {"type": "search", "query": {"original": "bool-test"}}
+    dummy_resp = DummyResponse(200, dummy_json)
+    session = DummySession(dummy_resp)
+    limiter = DummyLimiter()
+    client = BraveClient(api_key="test-key", session=session, limiter=limiter)
+    # Set various boolean flags to test conversion and exclusion of defaults
+    request = WebSearchRequest(
+        q="bool-test", extra_snippets=True, spellcheck=False, summary=True
+    )
+    response = asyncio.run(client.web_search(request))
+    assert isinstance(response, WebSearchApiResponse)
+    params = session.requests[0][1]
+    assert params.get("extra_snippets") == 1
+    assert params.get("spellcheck") == 0
+    assert params.get("summary") == 1
