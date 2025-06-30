@@ -178,13 +178,13 @@ requires-python = ">=3.12"
 - **agent-2**: Model generator – build/refine script that transforms HTML specs to Pydantic classes.
 
 - **✅ Completed tasks**
-  - Integration tests (tests/test_integration_braveclient.py)
+- Integration tests (tests/test_integration_braveclient.py)
+- Response model completion: Populate remaining response submodels in `httpobjects.py`.
+- Model generator: Build/refine script that transforms HTML specs to Pydantic classes.
   - Unit tests for boolean parameter conversion (tests/test_client.py)
   - Scaffold DiscussionResult & ForumData models and unit tests (httpobjects.py, tests/test_dataobjs.py)
 
 - **Pending tasks**
-  - Response model completion: Populate remaining response submodels in `httpobjects.py`.
-  - Model generator: Build/refine script that transforms HTML specs to Pydantic classes.
   - README & examples: Expand `README.md` with installation instructions and examples.
   - CI/CD setup: Configure continuous integration and automated package publishing.
   - Packaging & release: Add build/publish configuration, version bump flow, and PyPI metadata.
