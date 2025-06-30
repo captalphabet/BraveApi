@@ -5,7 +5,7 @@ from __future__ import annotations
 
 
 
-from typing import List, Optional, Literal
+from typing import List, Optional, Literal, Union
 from pydantic import BaseModel
 
 
@@ -40,7 +40,11 @@ class ForumData(BaseModel):
     top_comment: Optional[str] = None
 
 class MetaUrl(BaseModel):
-    pass
+    scheme: str
+    netloc: str
+    hostname: Optional[str] = None
+    favicon: str
+    path: str
 
 class QA(BaseModel):
     question: str
@@ -48,6 +52,16 @@ class QA(BaseModel):
     title: str
     url: str
     meta_url: Optional[MetaUrl] = None
+
+class Answer(BaseModel):
+    text: str
+    author: Optional[str] = None
+    upvote_count: Optional[int] = None
+    downvote_count: Optional[int] = None
+
+class QAPage(BaseModel):
+    question: str
+    answer: Answer
 
 class GraphInfobox(BaseModel):
     pass
