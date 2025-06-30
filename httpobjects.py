@@ -1,6 +1,8 @@
 
 """Objects to easily validate and pass parameters to specific Endpoints"""
 
+from __future__ import annotations
+
 
 
 from typing import List, Optional, Literal
@@ -28,12 +30,24 @@ class WebSearchRequest(BaseModel):
 
 # ----- Response object stubs and models based on docs/WebResponseSpec.md -----
 
-# Submodel stubs (full schema definitions to be added later)
-class DiscussionResult(BaseModel):
+# Submodel definitions based on ResponseDocsMk2.md
+class ForumData(BaseModel):
+    forum_name: str
+    num_answers: Optional[int] = None
+    score: Optional[str] = None
+    title: Optional[str] = None
+    question: Optional[str] = None
+    top_comment: Optional[str] = None
+
+class MetaUrl(BaseModel):
     pass
 
 class QA(BaseModel):
-    pass
+    question: str
+    answer: str
+    title: str
+    url: str
+    meta_url: Optional[MetaUrl] = None
 
 class GraphInfobox(BaseModel):
     pass
@@ -45,9 +59,6 @@ class LocationDescription(BaseModel):
     pass
 
 class DeepResult(BaseModel):
-    pass
-
-class MetaUrl(BaseModel):
     pass
 
 class Thumbnail(BaseModel):
@@ -147,6 +158,10 @@ class SearchResult(BaseModel):
     language: str
     location: Optional[LocationResult] = None
 
+class DiscussionResult(SearchResult):
+    type: Literal["discussion"]
+    data: Optional[ForumData] = None
+
 class Locations(BaseModel):
     type: Literal["locations"]
     results: List[LocationResult]
@@ -170,6 +185,7 @@ class Videos(BaseModel):
 # allow forward references
 WebSearchApiResponse.update_forward_refs()
 Search.update_forward_refs()
+Discussions.update_forward_refs()
 
 
 
