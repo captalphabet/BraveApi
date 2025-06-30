@@ -173,6 +173,10 @@ requires-python = ">=3.12"
 ---
 
 ## 9. Parallel tasks for agents
+- ### Task assignments for simultaneous work on separate branches
+- **agent-1**: Response model completion – populate remaining response submodels in `httpobjects.py`.
+- **agent-2**: Model generator – build/refine script that transforms HTML specs to Pydantic classes.
+
 - **✅ Completed tasks**
   - Integration tests (tests/test_integration_braveclient.py)
   - Unit tests for boolean parameter conversion (tests/test_client.py)
