@@ -173,24 +173,30 @@ requires-python = ">=3.12"
 ---
 
 ## 9. Parallel tasks for agents
-- ### Task assignments for simultaneous work on separate branches
-- **agent-1**: Response model completion – populate remaining response submodels in `httpobjects.py`.
-- **agent-2**: Model generator – build/refine script that transforms HTML specs to Pydantic classes.
 
-- **✅ Completed tasks**
+To facilitate parallel workstreams, tasks are now broadcast in a structured table. Agents may claim tasks by matching on branch and label.
+
+| Agent      | Task                                                                                           | Branch    |
+| ---------- | ---------------------------------------------------------------------------------------------- | --------- |
+| **agent-1** | Response model completion: populate remaining response submodels in `httpobjects.py`.          | `agent-1` |
+| **agent-2** | Model generator: build/refine script that transforms HTML specs to Pydantic classes.           | `agent-2` |
+
+### ✅ Completed tasks
+
 - Integration tests (tests/test_integration_braveclient.py)
-- Response model completion: Populate remaining response submodels in `httpobjects.py`.
-- Model generator: Build/refine script that transforms HTML specs to Pydantic classes.
-  - Unit tests for boolean parameter conversion (tests/test_client.py)
-  - Scaffold DiscussionResult & ForumData models and unit tests (httpobjects.py, tests/test_dataobjs.py)
+- Unit tests for boolean parameter conversion (tests/test_client.py)
+- Scaffold DiscussionResult & ForumData models and unit tests (httpobjects.py, tests/test_dataobjs.py)
+- Response model completion: populate remaining response submodels in `httpobjects.py`.
+- Model generator: build/refine script that transforms HTML specs to Pydantic classes.
 
-- **Pending tasks**
-  - README & examples: Expand `README.md` with installation instructions and examples.
-  - CI/CD setup: Configure continuous integration and automated package publishing.
-  - Packaging & release: Add build/publish configuration, version bump flow, and PyPI metadata.
-  - Linting & typing: Integrate linter (ruff), formatter (black), and type checker (pyright).
-  - Performance benchmarks: Measure request throughput and rate-limit performance.
+### 🚧 Pending tasks
 
+- Fill out all response submodels using the Markdown/HTML specs.
+- Flesh out README.md with usage examples and advanced patterns.
+- Automate spec → model generation as part of the build pipeline.
+- Add CI/CD and packaging pipeline: continuous integration, automated publishing to PyPI.
+- Integrate linting & typing enforcement (ruff, black, mypy).
+- Performance benchmarks: measure request throughput and rate-limit performance.
 
 # Expected Behaviour
 
