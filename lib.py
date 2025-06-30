@@ -69,14 +69,22 @@ class BraveClient:
             "summarizer": {"X-Subscription-Token": self._api_key, "Api-Version": "2024-04-23"},
         }
 
-        self._session = session or ClientSession(
-            connector=TCPConnector(limit=max_concurrent_requests),
-            timeout=ClientTimeout(timeout),
-        )
+        self._session = session
+        self._max_concurrent_requests = max_concurrent_requests
+        self._timeout_seconds = timeout
         self._limiter = limiter or AsyncLimiter(rps, 1)
+
+    async def _ensure_session(self) -> None:
+        """Lazily initialize the HTTP session in an async context."""
+        if self._session is None:
+            self._session = ClientSession(
+                connector=TCPConnector(limit=self._max_concurrent_requests),
+                timeout=ClientTimeout(self._timeout_seconds),
+            )
 
     async def web_search(self, request: WebSearchRequest) -> WebSearchApiResponse:
         """Perform a web search query and return a parsed WebSearchApiResponse."""
+        await self._ensure_session()
         # Exclude unset (None) and default fields to avoid unwanted boolean/query params
         params = request.model_dump(exclude_none=True, exclude_defaults=True)
         for key, value in list(params.items()):
@@ -95,6 +103,7 @@ class BraveClient:
         self, key: str, entity_info: bool = False
     ) -> Summarizer:
         """Fetch a summary using a summary key from a previous web search."""
+        await self._ensure_session()
         params: dict[str, int | str] = {"key": key}
         if entity_info:
             params["entity_info"] = 1

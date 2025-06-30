@@ -162,7 +162,7 @@ class Search(BaseModel):
 
 class SearchResult(BaseModel):
     type: Literal["search_result"]
-    subtype: Literal["generic"]
+    subtype: str
     is_live: bool
     deep_results: Optional[DeepResult] = None
     schemas: Optional[List[List]] = None
